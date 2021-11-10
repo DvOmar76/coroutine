@@ -26,8 +26,12 @@ class MainActivity : AppCompatActivity() {
                 var data = async {
                     fetchadvice()
                 }.await()
-                if (data.isNotEmpty()) {
-                    updatetext(data)
+     var data2 = async {
+                    fetchadvice()
+                }.await()
+                if (data.isNotEmpty()&& data2.isNotEmpty()) {
+                    updatetext(data,data2)
+
                 }
             }
    }
@@ -42,20 +46,19 @@ class MainActivity : AppCompatActivity() {
         return rsponse
     }
 
-    suspend fun updatetext(data:String)
+    suspend fun updatetext(data:String,data2:String)
     {
-       var advices=ArrayList<String>()
+
 
         withContext(Dispatchers.Main)
     {
-for (i in data)
         val jsonObject= JSONObject(data)
         val slip=jsonObject.getJSONObject("slip")
         val newone=slip.getString("advice")
-//        val jsonObject1= JSONObject(data1)
-//        val slip1=jsonObject.getJSONObject("slip")
-//        val newone1=slip.getString("advice")
-        tv.text=newone
+        val jsonObject1= JSONObject(data2)
+        val slip1=jsonObject1.getJSONObject("slip")
+        val newone1=slip1.getString("advice")
+        tv.text="advice1:$newone \nadvice2:$newone1 "
    }
     }
 //suspend fun returnadvice(data: String): String{
