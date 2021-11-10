@@ -22,19 +22,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun api() {
- CoroutineScope(Dispatchers.IO).launch {
-                var data = async {
-                    fetchadvice()
-                }.await()
-     var data2 = async {
-                    fetchadvice()
-                }.await()
-                if (data.isNotEmpty()&& data2.isNotEmpty()) {
-                    updatetext(data,data2)
+        CoroutineScope(Dispatchers.IO).launch {
+            var data = async {
+                fetchadvice()
+            }.await()
+            var data2 = async {
+                fetchadvice()
+            }.await()
+            if (data.isNotEmpty() && data2.isNotEmpty()) {
+                updatetext(data, data2)
 
-                }
             }
-   }
+        }
+    }
     fun fetchadvice(): String {
         var rsponse = ""
 
@@ -46,20 +46,20 @@ class MainActivity : AppCompatActivity() {
         return rsponse
     }
 
-    suspend fun updatetext(data:String,data2:String)
-    {
+    suspend fun updatetext(data:String,data2:String) {
 
 
         withContext(Dispatchers.Main)
-    {
-        val jsonObject= JSONObject(data)
-        val slip=jsonObject.getJSONObject("slip")
-        val newone=slip.getString("advice")
-        val jsonObject1= JSONObject(data2)
-        val slip1=jsonObject1.getJSONObject("slip")
-        val newone1=slip1.getString("advice")
-        tv.text="advice1:$newone \nadvice2:$newone1 "
-   }
+        {
+            val jsonObject = JSONObject(data)
+            val slip = jsonObject.getJSONObject("slip")
+            val newone = slip.getString("advice")
+            val jsonObject1 = JSONObject(data2)
+            val slip1 = jsonObject1.getJSONObject("slip")
+            val newone1 = slip1.getString("advice")
+            tv.text = "advice1:$newone \nadvice2:$newone1 "
+        }
+
     }
 //suspend fun returnadvice(data: String): String{
 //
